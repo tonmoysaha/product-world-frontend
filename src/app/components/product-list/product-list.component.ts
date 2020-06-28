@@ -18,7 +18,6 @@ export class ProductListComponent implements OnInit {
     this.getProductList();
   }
 
-
   // tslint:disable-next-line:typedef
    getProductList() {
     this.productService.getProductList().subscribe(

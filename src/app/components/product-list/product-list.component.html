@@ -16,7 +16,9 @@
   <td>{{ product.name }}</td>
   <td>{{ product.description }}</td>
   <td>{{ product.unitPrice | currency:'USD' }}</td>
-  <td>{{ product.imageUrl }}</td>
+  <td>
+    <img src="{{ product.imageUrl }}" height="100px">
+  </td>
   <td>{{ product.active }}</td>
   <td>{{ product.unitsInStock }}</td>
   <td>{{ product.dateCreated }}</td>
