@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Product} from '../common/product';
 import {map} from 'rxjs/operators';
+import {ProductCategory} from '../common/product-category';
 
 
 @Injectable({
@@ -21,6 +22,11 @@ export class ProductService {
     return this.httpClient.get<GetResponse>(searchCategory).pipe(
       map(response => response._embedded.products)
     );
+  }
+
+  getProductCategories(): Observable<ProductCategory[]> {
+    return ;
+
   }
 }
 

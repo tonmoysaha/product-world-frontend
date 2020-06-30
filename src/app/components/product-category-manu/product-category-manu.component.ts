@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductService} from '../../service/product.service';
+import {ProductCategory} from '../../common/product-category';
 
 @Component({
   selector: 'app-product-category-manu',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCategoryManuComponent implements OnInit {
 
-  constructor() { }
+  productCategories: ProductCategory[];
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.getProductCategories();
+  }
+
+  // tslint:disable-next-line:typedef
+  getProductCategories(){
+    this.productService.getProductCategories().subscribe(
+      data => {
+        this.productCategories = data;
+      }
+    );
   }
 
 }

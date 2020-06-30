@@ -11,7 +11,7 @@ import { ProductCategoryManuComponent } from './components/product-category-manu
 const routes: Routes = [
   { path: 'category/:id' , component: ProductListComponent},
   { path: 'category' , component: ProductListComponent},
-  { path: 'products' , component: ProductLisomponent},
+  { path: 'products' , component: ProductListComponent},
   { path: '' , redirectTo: '/products' , pathMatch: 'full'},
   { path: '**' , redirectTo: '/products' , pathMatch: 'full'},
 
