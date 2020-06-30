@@ -1,1 +1,5 @@
-<p>product-category-manu works!</p>
+<ul class="list-unstyled navbar-list" *ngFor="let category of productCategories">
+  <li>
+    <a routerLink="/category/{{ category.id }}" routerLinkActive="active-link">{{ category.categoryName }}</a>
+  </li>
+</ul>
