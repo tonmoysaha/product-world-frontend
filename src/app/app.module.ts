@@ -6,11 +6,12 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import {HttpClientModule} from '@angular/common/http';
 import {ProductService} from './service/product.service';
 import {RouterModule, Routes} from '@angular/router';
+import { ProductCategoryManuComponent } from './components/product-category-manu/product-category-manu.component';
 
 const routes: Routes = [
   { path: 'category/:id' , component: ProductListComponent},
   { path: 'category' , component: ProductListComponent},
-  { path: 'products' , component: ProductListComponent},
+  { path: 'products' , component: ProductLisomponent},
   { path: '' , redirectTo: '/products' , pathMatch: 'full'},
   { path: '**' , redirectTo: '/products' , pathMatch: 'full'},
 
@@ -19,7 +20,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProductCategoryManuComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
