@@ -1,37 +1,19 @@
-<table class="table">
-  <thead class="thead-dark">
-  <th>Sku</th>
-  <th>Name</th>
-  <th>Description</th>
-  <th>UnitPrice</th>
-  <th>Image Url</th>
-  <th>Active</th>
-  <th>Units In Stock</th>
-  <th>Date Created</th>
-  <th>Last Updated</th>
-  <th>MEt Quota?</th>
-  </thead>
-  <tbody *ngFor="let product of products " [ngClass]="{'highlight' : product.unitPrice > 3}">
-  <td>{{ product.sku }}</td>
-  <td>{{ product.name }}</td>
-  <td>{{ product.description }}</td>
-  <td>{{ product.unitPrice | currency:'USD' }}</td>
-  <td>
-    <img src="{{ product.imageUrl }}" height="100px">
-  </td>
-  <td>{{ product.active }}</td>
-  <td>{{ product.unitsInStock }}</td>
-  <td>{{ product.dateCreated }}</td>
-  <td>{{ product.lastUpdated }}</td>
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
 
-
-  <td>
-    <div *ngIf="product.unitPrice > 3 ; else myElseBlock">Yes</div>
-    <ng-template #myElseBlock>
-      <div class="text-danger">No</div>
-    </ng-template>
-  </td>
-
-  </tbody>
-
-</table>
+        <div class="col-md-3" *ngFor="let product of products">
+          <div class="product-box">
+            <a href="product-detail.html">
+              <img src="{{ product.imageUrl }}" height="100px" class="img-responsive">
+            </a>
+            <a href="product-detail.html">
+              <h1>{{ product.name }}</h1>
+            </a>
+            <h2>{{ product.description }}</h2>
+            <div class="price">{{ product.unitPrice | currency:'USD' }}</div>
+            <a href="#" class="primary-btn">Add to cart</a>
+          </div>
+        </div>
+      </div>
