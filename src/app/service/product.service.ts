@@ -38,6 +38,11 @@ export class ProductService {
       map(response => response._embedded.products)
     );
   }
+
+  getProduct(productId: number): Observable<Product> {
+    const getProductUrl = `${this.baseUrl}/products/${productId}`;
+    return this.httpClient.get<Product>(getProductUrl);
+  }
 }
 
 interface GetResponse {
