@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
 
   products: Product[];
   currentCategoryId: number;
+  searchMode: boolean;
 
   constructor(private productService: ProductService, private route: ActivatedRoute) {
   }
@@ -25,15 +26,37 @@ export class ProductListComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   getProductList() {
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
-   const hasCurrentCategoryId: boolean = this.route.snapshot.paramMap.has('id');
+    if (this.searchMode) {
+      this.handleSearchProducts();
+    } else {
+      this.handlegetProductList();
+    }
 
-   if (hasCurrentCategoryId){
-     this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
-   }else {
-     this.currentCategoryId = 1;
-   }
-   this.productService.getProductList(this.currentCategoryId).subscribe(
+  }
+
+
+  // tslint:disable-next-line:typedef
+  handlegetProductList() {
+    const hasCurrentCategoryId: boolean = this.route.snapshot.paramMap.has('id');
+
+    if (hasCurrentCategoryId) {
+      this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
+    } else {
+      this.currentCategoryId = 1;
+    }
+    this.productService.getProductList(this.currentCategoryId).subscribe(
+      data => {
+        this.products = data;
+      }
+    );
+  }
+
+  // tslint:disable-next-line:typedef
+  handleSearchProducts() {
+    const searchKeyword: string = this.route.snapshot.paramMap.get('keyword');
+    this.productService.getSearchProducts(searchKeyword).subscribe(
       data => {
         this.products = data;
       }

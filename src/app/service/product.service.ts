@@ -31,6 +31,10 @@ export class ProductService {
     );
 
   }
+
+  getSearchProducts(searchKeyword: string) {
+    
+  }
 }
 
 interface GetResponse {
