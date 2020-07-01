@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Product} from '../../common/product';
 import {ProductService} from '../../service/product.service';
 import {ActivatedRoute} from '@angular/router';
-import has = Reflect.has;
 
 @Component({
   selector: 'app-product-list',
@@ -26,6 +25,7 @@ export class ProductListComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   getProductList() {
+
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
     if (this.searchMode) {
@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  // tslint:disable-next-line:typedef
+  //tslint:disable-next-line:typedef
   handleSearchProducts() {
     const searchKeyword: string = this.route.snapshot.paramMap.get('keyword');
     this.productService.getSearchProducts(searchKeyword).subscribe(

@@ -32,8 +32,11 @@ export class ProductService {
 
   }
 
-  getSearchProducts(searchKeyword: string) {
-    
+  getSearchProducts(searchKeyword: string): Observable<Product[]> {
+    const searchProductUrl = `${this.baseUrl}/products/search/findByNameContainingIgnoreCase?name=${searchKeyword}`;
+    return this.httpClient.get<GetResponse>(searchProductUrl).pipe(
+      map(response => response._embedded.products)
+    );
   }
 }
 
