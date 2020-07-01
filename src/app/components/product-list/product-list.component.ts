@@ -53,7 +53,8 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  //tslint:disable-next-line:typedef
+
+  // tslint:disable-next-line:typedef
   handleSearchProducts() {
     const searchKeyword: string = this.route.snapshot.paramMap.get('keyword');
     this.productService.getSearchProducts(searchKeyword).subscribe(

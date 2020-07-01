@@ -2,7 +2,6 @@
   <div class="section-content section-content-p30">
     <div class="container-fluid">
       <div class="row">
-
         <div class="col-md-3" *ngFor="let product of products">
           <div class="product-box">
             <a href="product-detail.html">
@@ -16,4 +15,12 @@
             <a href="#" class="primary-btn">Add to cart</a>
           </div>
         </div>
+
+        <div *ngIf="products?.length == 0" class="alert alert-danger col-md-12" role="alert">
+          No Products Found.
+        </div>
+
       </div>
+    </div>
+  </div>
+</div>
