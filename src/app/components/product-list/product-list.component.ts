@@ -10,9 +10,16 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[];
-  currentCategoryId: number;
-  searchMode: boolean;
+  products: Product[] = [];
+  currentCategoryId = 1;
+  private previousCategoryId = 1;
+  searchMode = false;
+
+  // set propertise for pagination
+  thePageNumber = 1;
+  thePageSize = 10;
+  theToallElemets = 0;
+
 
   constructor(private productService: ProductService, private route: ActivatedRoute) {
   }
@@ -46,9 +53,22 @@ export class ProductListComponent implements OnInit {
     } else {
       this.currentCategoryId = 1;
     }
-    this.productService.getProductList(this.currentCategoryId).subscribe(
+
+
+
+    if (this.previousCategoryId !== this.currentCategoryId){
+            this.thePageNumber = 1;
+    }
+    this.previousCategoryId = this.currentCategoryId;
+
+    console.log(`${this.previousCategoryId} == ${this.currentCategoryId}`);
+
+    this.productService.getProductListPaginate(this.thePageNumber - 1, this.thePageSize, this.currentCategoryId).subscribe(
       data => {
-        this.products = data;
+        this.products = data._embedded.products;
+        this.thePageNumber = data.page.number + 1;
+        this.thePageSize = data.page.size;
+        this.theToallElemets = data.page.totalElements;
       }
     );
   }
@@ -62,5 +82,12 @@ export class ProductListComponent implements OnInit {
         this.products = data;
       }
     );
+  }
+
+  // tslint:disable-next-line:typedef
+  updatePageSize(pageSize: number) {
+    this.thePageSize = pageSize;
+    this.thePageNumber = 1;
+    this.getProductList();
   }
 }
