@@ -55,4 +55,10 @@ interface GetCategoryResponse {
   _embedded: {
     productCategory: ProductCategory[];
   };
+  page: {
+    size: pageNumber;
+    totalElements: totallElement;
+    totalPages: totallPage;
+    number: page;
+  };
 }
