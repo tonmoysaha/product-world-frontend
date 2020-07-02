@@ -30,6 +30,8 @@
                   <ngb-pagination [(page)]="thePageNumber"
                                     [pageSize]="thePageSize"
                                     [collectionSize]="theToallElemets"
+                                     [maxSize]="5"
+                                      [boundaryLinks]= "true"
                                     (pageChange)="getProductList()">
                   </ngb-pagination>
             </div>
