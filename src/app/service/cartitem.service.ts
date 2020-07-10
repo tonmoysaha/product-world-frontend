@@ -41,6 +41,15 @@ export class CartitemService {
 
 
   private computeCartTotalls() {
-    
+    let totallPriceValue: number = 0;
+    let totallQuantity: number = 0;
+
+    for (let cartItem of this.cartItems){
+      totallPriceValue += cartItem.quantity * cartItem.unitPrice;
+      totallQuantity += cartItem.quantity;
+    }
+
+    this.toatallPrice.next(totallPriceValue);
+    this.totallQuantity.next(totallQuantity);
   }
 }
