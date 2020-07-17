@@ -22,12 +22,16 @@ export class CartitemService {
     let existingCartItem: CartItem = undefined;
 
     if (this.cartItems.length > 0) {
-      for (let tempCartItem of this.cartItems){
-          if (cartItem.id === tempCartItem.id){
-            existingCartItem = tempCartItem;
-            break;
-          }
-      }
+
+      // for (let tempCartItem of this.cartItems){
+      //     if (cartItem.id === tempCartItem.id){
+      //       existingCartItem = tempCartItem;
+      //       break;
+      //     }
+      // }
+
+      existingCartItem = this.cartItems.find(tempCartItem => (tempCartItem.id === cartItem.id));
+
       alreadytExistInCart = (existingCartItem !== undefined);
     }
     if (alreadytExistInCart){

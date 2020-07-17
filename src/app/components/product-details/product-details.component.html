@@ -7,7 +7,7 @@
 
       <h3>{{ product.name }}</h3>
       <div class="price">{{ product.unitPrice | currency: 'USD'}}</div>
-      <button class="primary-btn btn-sm primary-btn" (click)="addTocart(product)">Add to cart</button>
+      <button class="btn btn-primary" (click)="addTocart()">Add to cart</button>
       <hr>
       <h4>Product Description</h4>
       <p>{{ product.description }}
