@@ -51,5 +51,20 @@ export class CartitemService {
 
     this.toatallPrice.next(totallPriceValue);
     this.totallQuantity.next(totallQuantity);
+
+    this.logCartData(totallPriceValue, totallQuantity);
+  }
+
+  private logCartData(totallPriceValue: number, totallQuantity: number) {
+
+    console.log(`Content of cart item: `);
+
+    for (let tempCartItem of this.cartItems){
+      const subTotallPrice = tempCartItem.quantity * tempCartItem.unitPrice;
+      console.log(`Item Name: ${tempCartItem.name} , Quantity: ${tempCartItem.quantity} , Item Price: ${tempCartItem.unitPrice}
+       , Item Subtotall: ${subTotallPrice}`);
+    }
+
+    console.log(`Totall Price: ${totallPriceValue.toFixed(2)} , Totall Quantity: ${totallQuantity}`);
   }
 }
