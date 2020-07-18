@@ -35,7 +35,7 @@
               </div>
             </div>
             <p>Sub-total: {{ cartItem.quantity * cartItem.unitPrice | currency: 'USD' }}</p>
-            <a href="#" class="primary-btn">Remove</a>
+            <button (click)="removeItem(cartItem)" class="btn btn-primary">Remove</button>
           </td>
         </tr>
         <tr>

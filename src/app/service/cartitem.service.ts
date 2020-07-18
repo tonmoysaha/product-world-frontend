@@ -82,6 +82,11 @@ export class CartitemService {
   }
 
    remove(cartItem: CartItem) {
-     //const tempCartItem = this.cartItems.findIndex(tempcartItem => tempcartItem.id === cartItem.id);
+     const tempCartItemIndex = this.cartItems.findIndex(tempcartItem => tempcartItem.id === cartItem.id);
+
+     if (tempCartItemIndex > -1){
+       this.cartItems.splice(tempCartItemIndex,1);
+       this.computeCartTotalls();
+     }
   }
 }
