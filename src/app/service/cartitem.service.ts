@@ -71,4 +71,17 @@ export class CartitemService {
 
     console.log(`Totall Price: ${totallPriceValue.toFixed(2)} , Totall Quantity: ${totallQuantity}`);
   }
+
+  decrementItemQuantity(cartItem: CartItem) {
+    cartItem.quantity--;
+    if (cartItem.quantity === 0) {
+      this.remove(cartItem);
+    } else {
+      this.computeCartTotalls();
+    }
+  }
+
+   remove(cartItem: CartItem) {
+     //const tempCartItem = this.cartItems.findIndex(tempcartItem => tempcartItem.id === cartItem.id);
+  }
 }
