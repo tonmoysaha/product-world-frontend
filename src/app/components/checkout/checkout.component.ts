@@ -35,6 +35,15 @@ export class CheckoutComponent implements OnInit {
         city: [''],
         state: [''],
         zipCode: ['']
+      }),
+      
+      creditCard: this.formBuilder.group({
+        cardType:[''],
+        nameOnCard:[''],
+        cardNumber:[''],
+        securityCode:[''],
+        expirationMonth:[''],
+        expirationYear:['']
       })
 
     });
@@ -44,5 +53,8 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     console.log(`handling form submission`);
     console.log(this.checkOutFormBuilder.get('customer').value);
+    console.log(this.checkOutFormBuilder.get('shippingAddress').value);
+    console.log(this.checkOutFormBuilder.get('billingAddress').value);
+    console.log(this.checkOutFormBuilder.get('creditCard').value);
   }
 }
