@@ -41,7 +41,9 @@
             <div class="col-md-2"> <label>country: </label> </div>
             <div class="col-md-9">
               <div class="input-space">
-                <input formControlName="country" type="text" placeholder="Enter country ..." />
+                <select formControlName="country">
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
@@ -68,7 +70,9 @@
             <div class="col-md-2"> <label>state: </label> </div>
             <div class="col-md-9">
               <div class="input-space">
-                <input formControlName="state" type="text" placeholder="Enter state ..." />
+                <select formControlName="state">
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
@@ -84,6 +88,12 @@
 
         </div>
 
+        <div class="input-space">
+          <label class="au-checkbox">
+            <input type="checkbox" (change)="shippingAddressToBillingAddress($event)">
+            <span class="au-checkmark"></span>Billing Address As Shipping Address
+          </label>
+        </div>
         <div formGroupName="billingAddress" class="form-area">
           <h3>Billing Address</h3>
 
@@ -91,7 +101,9 @@
             <div class="col-md-2"> <label>country: </label> </div>
             <div class="col-md-9">
               <div class="input-space">
-                <input formControlName="country" type="text" placeholder="Enter country ..." />
+                <select formControlName="country">
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
@@ -115,10 +127,12 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>state: </label> </div>
+            <div class="col-md-2"> <label>State: </label> </div>
             <div class="col-md-9">
               <div class="input-space">
-                <input formControlName="state" type="text" placeholder="Enter state ..." />
+                <select formControlName="state">
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
@@ -191,6 +205,13 @@
             </div>
           </div>
 
+        </div>
+
+        <div class="form-area">
+          <h3>Review Your Order</h3>
+          <b>Total Quantity: {{ totallQuantity }}</b><br>
+          <b><p>Shipping FREE</p></b><br>
+          <b>Total Price: {{ totallprice | currency: 'USD' }}</b>
         </div>
 
 
