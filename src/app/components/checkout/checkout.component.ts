@@ -25,6 +25,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-
+    console.log(`handling form submission`);
+    console.log(this.checkOutFormBuilder.get('customer').value);
   }
 }
