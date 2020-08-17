@@ -1,31 +1,31 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
+import {ProductListComponent} from './components/product-list/product-list.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ProductService} from './service/product.service';
 import {RouterModule, Routes} from '@angular/router';
-import { ProductCategoryManuComponent } from './components/product-category-manu/product-category-manu.component';
-import { SearchComponent } from './components/search/search.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { CartStatusComponent } from './components/cart-status/cart-status.component';
-import { CartDetailsComponent } from './components/cart-details/cart-details.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
+import {ProductCategoryManuComponent} from './components/product-category-manu/product-category-manu.component';
+import {SearchComponent} from './components/search/search.component';
+import {ProductDetailsComponent} from './components/product-details/product-details.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CartStatusComponent} from './components/cart-status/cart-status.component';
+import {CartDetailsComponent} from './components/cart-details/cart-details.component';
+import {CheckoutComponent} from './components/checkout/checkout.component';
 import {ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
-  { path: 'checkout' , component: CheckoutComponent},
-  { path: 'cartDetails' , component: CartDetailsComponent},
-  { path: 'products/:id' , component: ProductDetailsComponent},
-  { path: 'search/:keyword' , component: ProductListComponent},
-  { path: 'category/:id' , component: ProductListComponent},
-  { path: 'category' , component: ProductListComponent},
-  { path: 'products' , component: ProductListComponent},
-  { path: '' , redirectTo: '/products' , pathMatch: 'full'},
-  { path: '**' , redirectTo: '/products' , pathMatch: 'full'},
+  {path: 'checkout', component: CheckoutComponent},
+  {path: 'cartDetails', component: CartDetailsComponent},
+  {path: 'products/:id', component: ProductDetailsComponent},
+  {path: 'search/:keyword', component: ProductListComponent},
+  {path: 'category/:id', component: ProductListComponent},
+  {path: 'category', component: ProductListComponent},
+  {path: 'products', component: ProductListComponent},
+  {path: '', redirectTo: '/products', pathMatch: 'full'},
+  {path: '**', redirectTo: '/products', pathMatch: 'full'},
 
- ];
+];
 
 @NgModule({
   declarations: [
@@ -48,4 +48,5 @@ const routes: Routes = [
   providers: [ProductService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
