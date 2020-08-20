@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CartitemService} from '../../service/cartitem.service';
 import {ProductworldformsService} from '../../service/productworldforms.service';
+import {Country} from '../../common/country';
+import {State} from '../../common/state';
 
 @Component({
   selector: 'app-checkout',
@@ -13,10 +15,15 @@ export class CheckoutComponent implements OnInit {
   totallprice: number = 0.0;
   totallQuantity: number = 0;
   checkOutFormBuilder: FormGroup;
+
   creditCardMonths: number[] = [];
   creditCardyears: number[] = [];
+  countries: Country[] = [];
+  states: State[] = [];
+  country: string;
 
-  constructor(private formBuilder: FormBuilder, private cartService: CartitemService, private productForms: ProductworldformsService) {
+  constructor(private formBuilder: FormBuilder, private cartService: CartitemService,
+              private productFormsService: ProductworldformsService) {
   }
 
   ngOnInit(): void {
@@ -57,17 +64,28 @@ export class CheckoutComponent implements OnInit {
     this.updateTotall();
 
     const currentMonth: number = new Date().getMonth() + 1;
-    this.productForms.getCreditCardsMonths(currentMonth).subscribe(data => {
+    this.productFormsService.getCreditCardsMonths(currentMonth).subscribe(data => {
       console.log('retrieve credit months: ' + JSON.stringify(data));
       this.creditCardMonths = data;
     });
 
-    this.productForms.getCreditCardsYears().subscribe(
+    this.productFormsService.getCreditCardsYears().subscribe(
       data => {
         console.log('retrieve credit Years: ' + JSON.stringify(data));
         this.creditCardyears = data;
       }
     );
+
+    this.productFormsService.getCountries().subscribe(
+      data => {
+        console.log('retrieve credit Years: ' + JSON.stringify(data));
+        this.countries = data;
+      }
+    )
+
+    
+    
+    
 
   }
   //copy value from one form to another
@@ -79,11 +97,13 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  //update totall price in checkout page
   updateTotall() {
     this.cartService.toatallPrice.subscribe(data => this.totallprice = data);
     this.cartService.totallQuantity.subscribe(data => this.totallQuantity = data);
   }
 
+  //handle month from future year
   handleMonthsAndyears() {
     const creditCardFormGroup = this.checkOutFormBuilder.get('creditCard');
 
@@ -98,14 +118,15 @@ export class CheckoutComponent implements OnInit {
       startMonth = new Date().getMonth()+1;
     }
 
-    this.productForms.getCreditCardsMonths(startMonth).subscribe(
+    this.productFormsService.getCreditCardsMonths(startMonth).subscribe(
       data => {
         this.creditCardMonths = data;
       }
     );
 
   }
-
+  
+  
   onSubmit() {
     console.log(`handling form submission`);
     console.log(this.checkOutFormBuilder.get('customer').value);
