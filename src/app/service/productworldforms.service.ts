@@ -8,18 +8,18 @@ export class ProductworldformsService {
 
   constructor() { }
 
-  getCreditCardsMonth(startMonth: number): Observable<number[]> {
+  getCreditCardsMonths(startMonth: number): Observable<number[]> {
 
-    let data: number[];
+    let data: number[] = [];
     for (let month = startMonth ; month <= 12 ; month++){
       data.push(month);
     }
     return of(data);
   }
 
-  getCreditCardsYear(): Observable<number[]>{
+  getCreditCardsYears(): Observable<number[]>{
 
-    let data: number[];
+    let data: number[] = [];
     const currentYear: number = new Date().getFullYear();
     const endLength: number = currentYear+10;
 
