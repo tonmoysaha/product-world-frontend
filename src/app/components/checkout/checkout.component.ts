@@ -19,8 +19,9 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[] = [];
   creditCardyears: number[] = [];
   countries: Country[] = [];
-  states: State[] = [];
-  country: string;
+  shippingStates: State[] = [];
+  billingStates: State[] = [];
+
 
   constructor(private formBuilder: FormBuilder, private cartService: CartitemService,
               private productFormsService: ProductworldformsService) {
@@ -83,17 +84,17 @@ export class CheckoutComponent implements OnInit {
       }
     )
 
-    
-    
-    
-
   }
   //copy value from one form to another
   shippingAddressToBillingAddress(event) {
     if (event.target.checked) {
       this.checkOutFormBuilder.controls.billingAddress.setValue(this.checkOutFormBuilder.controls.shippingAddress.value);
+      //bug fix
+      this.billingStates = this.shippingStates;
     } else {
       this.checkOutFormBuilder.controls.billingAddress.reset();
+      //bug fix
+      this.billingStates = [];
     }
   }
 
@@ -136,4 +137,23 @@ export class CheckoutComponent implements OnInit {
   }
 
 
+  getStates(formGroupName: string) {
+
+    const formGroup = this.checkOutFormBuilder.get(formGroupName);
+    const countryCode = formGroup.value.country.code;
+
+    this.productFormsService.getStates(countryCode).subscribe(
+      data => {
+        if (formGroupName === 'shippingAddress') {
+          this.shippingStates = data;
+        }else {
+          this.billingStates = data;
+        }
+
+        formGroup.get('state').setValue(data[0]);
+      }
+
+    )
+
+  }
 }
