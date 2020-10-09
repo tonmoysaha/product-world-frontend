@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CartItem} from '../common/cart-item';
 import {Subject} from 'rxjs';
 
@@ -12,10 +12,11 @@ export class CartitemService {
   toatallPrice: Subject<number> = new Subject<number>();
   totallQuantity: Subject<number> = new Subject<number>();
 
-  constructor() { }
+  constructor() {
+  }
 
 
-  addTocart(cartItem: CartItem){
+  addTocart(cartItem: CartItem) {
 
     let alreadytExistInCart: boolean = false;
 
@@ -23,20 +24,13 @@ export class CartitemService {
 
     if (this.cartItems.length > 0) {
 
-      // for (let tempCartItem of this.cartItems){
-      //     if (cartItem.id === tempCartItem.id){
-      //       existingCartItem = tempCartItem;
-      //       break;
-      //     }
-      // }
-
       existingCartItem = this.cartItems.find(tempCartItem => (tempCartItem.id === cartItem.id));
 
       alreadytExistInCart = (existingCartItem !== undefined);
     }
-    if (alreadytExistInCart){
+    if (alreadytExistInCart) {
       existingCartItem.quantity++;
-    }else {
+    } else {
       this.cartItems.push(cartItem);
     }
 
@@ -44,11 +38,11 @@ export class CartitemService {
   }
 
 
-   computeCartTotalls() {
+  computeCartTotalls() {
     let totallPriceValue: number = 0;
     let totallQuantity: number = 0;
 
-    for (let cartItem of this.cartItems){
+    for (let cartItem of this.cartItems) {
       totallPriceValue += cartItem.quantity * cartItem.unitPrice;
       totallQuantity += cartItem.quantity;
     }
@@ -57,19 +51,6 @@ export class CartitemService {
     this.totallQuantity.next(totallQuantity);
 
     this.logCartData(totallPriceValue, totallQuantity);
-  }
-
-  private logCartData(totallPriceValue: number, totallQuantity: number) {
-
-    console.log(`Content of cart item: `);
-
-    for (let tempCartItem of this.cartItems){
-      const subTotallPrice = tempCartItem.quantity * tempCartItem.unitPrice;
-      console.log(`Item Name: ${tempCartItem.name} , Quantity: ${tempCartItem.quantity} , Item Price: ${tempCartItem.unitPrice}
-       , Item Subtotall: ${subTotallPrice}`);
-    }
-
-    console.log(`Totall Price: ${totallPriceValue.toFixed(2)} , Totall Quantity: ${totallQuantity}`);
   }
 
   decrementItemQuantity(cartItem: CartItem) {
@@ -81,12 +62,35 @@ export class CartitemService {
     }
   }
 
-   remove(cartItem: CartItem) {
-     const tempCartItemIndex = this.cartItems.findIndex(tempcartItem => tempcartItem.id === cartItem.id);
+  remove(cartItem: CartItem) {
+    const tempCartItemIndex = this.cartItems.findIndex(tempcartItem => tempcartItem.id === cartItem.id);
 
-     if (tempCartItemIndex > -1){
-       this.cartItems.splice(tempCartItemIndex,1);
-       this.computeCartTotalls();
-     }
+    if (tempCartItemIndex > -1) {
+      this.cartItems.splice(tempCartItemIndex, 1);
+      this.computeCartTotalls();
+    }
+  }
+
+
+
+
+  private logCartData(totallPriceValue: number, totallQuantity: number) {
+
+    console.log(`Content of cart item: `);
+
+    for (let tempCartItem of this.cartItems) {
+      const subTotallPrice = tempCartItem.quantity * tempCartItem.unitPrice;
+      console.log(`Item Name: ${tempCartItem.name} , Quantity: ${tempCartItem.quantity} , Item Price: ${tempCartItem.unitPrice}
+       , Item Subtotall: ${subTotallPrice}`);
+    }
+
+    console.log(`Totall Price: ${totallPriceValue.toFixed(2)} , Totall Quantity: ${totallQuantity}`);
   }
 }
+
+// for (let tempCartItem of this.cartItems){
+//     if (cartItem.id === tempCartItem.id){
+//       existingCartItem = tempCartItem;
+//       break;
+//     }
+// }
