@@ -49,11 +49,11 @@ export class CheckoutComponent implements OnInit {
       }),
 
       billingAddress: this.formBuilder.group({
-        country: [''],
-        street: [''],
-        city: [''],
-        state: [''],
-        zipCode: ['']
+        country: new FormControl('', [Validators.required]),
+        street: new FormControl('', [Validators.required, Validators.minLength(2), CustomValidators.notOnlyWhiteSpace]),
+        city: new FormControl('', [Validators.required, Validators.minLength(2), CustomValidators.notOnlyWhiteSpace]),
+        state: new FormControl('', [Validators.required]),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(2), CustomValidators.notOnlyWhiteSpace])
       }),
 
       creditCard: this.formBuilder.group({
@@ -66,12 +66,14 @@ export class CheckoutComponent implements OnInit {
       })
     });
 
+    //Get Credit Card months
     const currentMonth: number = new Date().getMonth() + 1;
     this.productFormsService.getCreditCardsMonths(currentMonth).subscribe(data => {
       console.log('retrieve credit months: ' + JSON.stringify(data));
       this.creditCardMonths = data;
     });
 
+    //Get Credit Card Years
     this.productFormsService.getCreditCardsYears().subscribe(
       data => {
         console.log('retrieve credit Years: ' + JSON.stringify(data));
@@ -79,6 +81,7 @@ export class CheckoutComponent implements OnInit {
       }
     );
 
+    //Get Countries
     this.productFormsService.getCountries().subscribe(
       data => {
         console.log('retrieve credit Years: ' + JSON.stringify(data));
@@ -100,6 +103,12 @@ export class CheckoutComponent implements OnInit {
   get state(){return this.checkOutFormBuilder.get('shippingAddress.state');}
   get zipCode(){return this.checkOutFormBuilder.get('shippingAddress.zipCode');}
 
+  //shipping
+  get billingAddressCountry(){return this.checkOutFormBuilder.get('billingAddress.country');}
+  get billingAddressStreet(){return this.checkOutFormBuilder.get('billingAddress.street');}
+  get billingAddressCity(){return this.checkOutFormBuilder.get('billingAddress.city');}
+  get billingAddressState(){return this.checkOutFormBuilder.get('billingAddress.state');}
+  get billingAddressZipCode(){return this.checkOutFormBuilder.get('billingAddress.zipCode');}
 
 
 
@@ -120,9 +129,7 @@ export class CheckoutComponent implements OnInit {
   updateTotal() {
     this.cartService.toatallPrice.subscribe(
       data => this.totallPrice = data
-
     );
-
     this.cartService.totallQuantity.subscribe(
       data => this.totallQuantity = data
     );
@@ -131,10 +138,8 @@ export class CheckoutComponent implements OnInit {
   //handle month from future year
   handleMonthsAndyears() {
     const creditCardFormGroup = this.checkOutFormBuilder.get('creditCard');
-
     const selectedYear: number = creditCardFormGroup.value.expirationYear;
     const currentYear: number = new Date().getFullYear();
-
     let startMonth: number;
 
     if (selectedYear !== currentYear) {
@@ -148,12 +153,10 @@ export class CheckoutComponent implements OnInit {
         this.creditCardMonths = data;
       }
     );
-
   }
 
   //Get all the states
   getStates(formGroupName: string) {
-
     const formGroup = this.checkOutFormBuilder.get(formGroupName);
     const countryCode = formGroup.value.country.code;
 
@@ -164,18 +167,13 @@ export class CheckoutComponent implements OnInit {
         }else {
           this.billingStates = data;
         }
-
         formGroup.get('state').setValue(data[0]);
       }
-
     )
-
   }
 
-
-
+  //SUbmit form button
   onSubmit() {
-
     if (this.checkOutFormBuilder.invalid){
       return this.checkOutFormBuilder.markAllAsTouched();
     }
