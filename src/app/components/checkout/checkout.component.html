@@ -58,6 +58,7 @@
 
         </div>
 
+        //Shipping Address Form
         <div formGroupName="shippingAddress" class="form-area">
           <h3>Shipping Address</h3>
 
@@ -68,6 +69,11 @@
                 <select formControlName="country" (change)="getStates('shippingAddress')">
                   <option *ngFor="let country of countries" [ngValue]="country">{{ country?.code }}</option>
                 </select>
+                <div *ngIf="country.invalid && (country.touched || country.dirty)" class="alert alert-danger">
+                  <div *ngIf="country.errors.required">
+                    country is required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -77,6 +83,14 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="street" type="text" placeholder="Enter street ..."/>
+                <div *ngIf="street.invalid && (street.touched || street.dirty)" class="alert alert-danger">
+                  <div *ngIf="street.errors.required || street.errors.notOnlyWhiteSpace">
+                    Street is required
+                  </div>
+                  <div *ngIf="street.errors.minlength">
+                    Street is at least 2 character required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -86,6 +100,14 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="city" type="text" placeholder="Enter city ..."/>
+                <div *ngIf="city.invalid && (city.touched || city.dirty)" class="alert alert-danger">
+                  <div *ngIf="city.errors.required || city.errors.notOnlyWhiteSpace">
+                    City is required
+                  </div>
+                  <div *ngIf="city.errors.minlength">
+                    City is at least 2 character required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -97,6 +119,11 @@
                 <select formControlName="state">
                   <option *ngFor="let state of shippingStates" [ngValue]="state">{{ state.name }}</option>
                 </select>
+                <div *ngIf="state.invalid && (state.touched || state.dirty)" class="alert alert-danger">
+                  <div *ngIf="state.errors.required">
+                    State is required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -106,18 +133,29 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="zipCode" type="text" placeholder="Enter zipCode ..."/>
+                <div *ngIf="zipCode.invalid && (zipCode.touched || zipCode.dirty)" class="alert alert-danger">
+                  <div *ngIf="zipCode.errors.required || zipCode.errors.notOnlyWhiteSpace">
+                    Zip Code is required
+                  </div>
+                  <div *ngIf="zipCode.errors.minlength">
+                    Zip Code is at least 2 character required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
         </div>
 
+        //copy shipping address to billing address
         <div class="input-space">
           <label class="au-checkbox">
             <input type="checkbox" (change)="shippingAddressToBillingAddress($event)">
             <span class="au-checkmark"></span>Billing Address As Shipping Address
           </label>
         </div>
+
+
 
         <div formGroupName="billingAddress" class="form-area">
           <h3>Billing Address</h3>

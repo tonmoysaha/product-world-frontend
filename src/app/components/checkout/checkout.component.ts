@@ -41,11 +41,11 @@ export class CheckoutComponent implements OnInit {
                                                             Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
-        country: [''],
-        street: [''],
-        city: [''],
-        state: [''],
-        zipCode: ['']
+        country: new FormControl('', [Validators.required]),
+        street: new FormControl('', [Validators.required, Validators.minLength(2), CustomValidators.notOnlyWhiteSpace]),
+        city: new FormControl('', [Validators.required, Validators.minLength(2), CustomValidators.notOnlyWhiteSpace]),
+        state: new FormControl('', [Validators.required]),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(2), CustomValidators.notOnlyWhiteSpace])
       }),
 
       billingAddress: this.formBuilder.group({
@@ -87,6 +87,22 @@ export class CheckoutComponent implements OnInit {
     )
 
   }
+
+  //Form details to check validation
+  get firstName(){return this.checkOutFormBuilder.get('customer.firstName');}
+  get lastName(){return this.checkOutFormBuilder.get('customer.lastName');}
+  get email(){return this.checkOutFormBuilder.get('customer.email');}
+
+  //shipping
+  get country(){return this.checkOutFormBuilder.get('shippingAddress.country');}
+  get street(){return this.checkOutFormBuilder.get('shippingAddress.street');}
+  get city(){return this.checkOutFormBuilder.get('shippingAddress.city');}
+  get state(){return this.checkOutFormBuilder.get('shippingAddress.state');}
+  get zipCode(){return this.checkOutFormBuilder.get('shippingAddress.zipCode');}
+
+
+
+
   //copy value from one form to another
   shippingAddressToBillingAddress(event) {
     if (event.target.checked) {
@@ -155,11 +171,6 @@ export class CheckoutComponent implements OnInit {
     )
 
   }
-
-  
-  get firstName(){return this.checkOutFormBuilder.get('customer.firstName');}
-  get lastName(){return this.checkOutFormBuilder.get('customer.lastName');}
-  get email(){return this.checkOutFormBuilder.get('customer.email');}
 
 
 
