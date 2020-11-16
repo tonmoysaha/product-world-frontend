@@ -134,7 +134,7 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-
+  //Get all the states
   getStates(formGroupName: string) {
 
     const formGroup = this.checkOutFormBuilder.get(formGroupName);
@@ -155,9 +155,18 @@ export class CheckoutComponent implements OnInit {
 
   }
 
+  
+  get firstName(){return this.checkOutFormBuilder.get('customer.firstName');}
+  get lastName(){return this.checkOutFormBuilder.get('customer.lastName');}
+  get email(){return this.checkOutFormBuilder.get('customer.email');}
+
 
 
   onSubmit() {
+
+    if (this.checkOutFormBuilder.invalid){
+      return this.checkOutFormBuilder.markAllAsTouched();
+    }
     console.log(`handling form submission`);
     console.log(this.checkOutFormBuilder.get('customer').value);
     console.log(this.checkOutFormBuilder.get('shippingAddress').value);

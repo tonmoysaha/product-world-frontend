@@ -10,6 +10,14 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="firstName" type="text" placeholder="Enter First Name ..."/>
+                <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)" class="alert alert-warning">
+                  <div *ngIf="firstName.errors.required">
+                    First name is required
+                  </div>
+                  <div *ngIf="firstName.errors.minlength">
+                    First name is at least 2 character required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -19,6 +27,14 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="lastName" type="text" placeholder="Enter Last Name ..."/>
+                <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)" class="alert alert-warning">
+                  <div *ngIf="lastName.errors.required">
+                    Last name is required
+                  </div>
+                  <div *ngIf="lastName.errors.minlength">
+                    Last name is at least 2 character required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -28,6 +44,14 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="email" type="text" placeholder="Enter Email ..."/>
+                <div *ngIf="email.invalid && (email.touched || email.dirty)" class="alert alert-warning">
+                  <div *ngIf="email.errors.required">
+                     email is required
+                  </div>
+                  <div *ngIf="email.errors.pattern">
+                    Enter a valid pattern email!
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -225,7 +249,7 @@
 
 
         <div class="text-center">
-          <button class="btn btn-info" type="submit">Purchase</button>
+          <button class="btn btn-info" type="submit" (submit)="onSubmit()">Purchase</button>
         </div>
 
 
