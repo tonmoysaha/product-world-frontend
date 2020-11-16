@@ -57,12 +57,12 @@ export class CheckoutComponent implements OnInit {
       }),
 
       creditCard: this.formBuilder.group({
-        cardType: [''],
-        nameOnCard: [''],
-        cardNumber: [''],
-        securityCode: [''],
-        expirationMonth: [''],
-        expirationYear: ['']
+        cardType: new FormControl('', [Validators.required, CustomValidators.notOnlyWhiteSpace]),
+        nameOnCard: new FormControl('', [Validators.required, CustomValidators.notOnlyWhiteSpace]),
+        cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}'), CustomValidators.notOnlyWhiteSpace]),
+        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}'), CustomValidators.notOnlyWhiteSpace]),
+        expirationMonth: new FormControl('', [Validators.required]),
+        expirationYear: new FormControl('', [Validators.required])
       })
     });
 
@@ -103,12 +103,22 @@ export class CheckoutComponent implements OnInit {
   get state(){return this.checkOutFormBuilder.get('shippingAddress.state');}
   get zipCode(){return this.checkOutFormBuilder.get('shippingAddress.zipCode');}
 
-  //shipping
+  //Billing address
   get billingAddressCountry(){return this.checkOutFormBuilder.get('billingAddress.country');}
   get billingAddressStreet(){return this.checkOutFormBuilder.get('billingAddress.street');}
   get billingAddressCity(){return this.checkOutFormBuilder.get('billingAddress.city');}
   get billingAddressState(){return this.checkOutFormBuilder.get('billingAddress.state');}
   get billingAddressZipCode(){return this.checkOutFormBuilder.get('billingAddress.zipCode');}
+
+  //Credit Card
+  get creditCardType(){return this.checkOutFormBuilder.get('creditCard.cardType');}
+  get creditCardname(){return this.checkOutFormBuilder.get('creditCard.nameOnCard');}
+  get creditCardNumber(){return this.checkOutFormBuilder.get('creditCard.cardNumber');}
+  get creditCardSecurityCode(){return this.checkOutFormBuilder.get('creditCard.securityCode');}
+  get creditCardexpirationMonth(){return this.checkOutFormBuilder.get('creditCard.expirationMonth');}
+  get creditCardexpirationYear(){return this.checkOutFormBuilder.get('creditCard.expirationYear');}
+
+
 
 
 
