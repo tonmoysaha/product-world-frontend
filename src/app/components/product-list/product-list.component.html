@@ -1,37 +1,55 @@
-<table class="table">
-  <thead class="thead-dark">
-  <th>Sku</th>
-  <th>Name</th>
-  <th>Description</th>
-  <th>UnitPrice</th>
-  <th>Image Url</th>
-  <th>Active</th>
-  <th>Units In Stock</th>
-  <th>Date Created</th>
-  <th>Last Updated</th>
-  <th>MEt Quota?</th>
-  </thead>
-  <tbody *ngFor="let product of products " [ngClass]="{'highlight' : product.unitPrice > 3}">
-  <td>{{ product.sku }}</td>
-  <td>{{ product.name }}</td>
-  <td>{{ product.description }}</td>
-  <td>{{ product.unitPrice | currency:'USD' }}</td>
-  <td>
-    <img src="{{ product.imageUrl }}" height="100px">
-  </td>
-  <td>{{ product.active }}</td>
-  <td>{{ product.unitsInStock }}</td>
-  <td>{{ product.dateCreated }}</td>
-  <td>{{ product.lastUpdated }}</td>
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <div *ngFor="let product of products" class="col-md-3">
+          <div class="product-box">
+            <a routerLink="/products/{{ product?.id }}">
+              <img class="img-responsive" height="100px" src="{{ product?.imageUrl }}">
+            </a>
+            <a routerLink="/products/{{ product?.id }}">
+              <h1>{{ product?.name }}</h1>
+            </a>
+            <h2>{{ product?.description }}</h2>
+            <div class="price">{{ product?.unitPrice | currency:'USD' }}</div>
+            <button class="btn btn-primary" (click)="adcTocart(product)">Add to cart</button>
+          </div>
+        </div>
 
+        <div *ngIf="products?.length == 0" class="alert alert-danger col-md-12" role="alert">
+          No Products Found.
+        </div>
+      </div>
 
-  <td>
-    <div *ngIf="product.unitPrice > 3 ; else myElseBlock">Yes</div>
-    <ng-template #myElseBlock>
-      <div class="text-danger">No</div>
-    </ng-template>
-  </td>
+      <div class="footer-pagination">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9">
+                <ngb-pagination [(page)]="thePageNumber"
+                                [pageSize]="thePageSize"
+                                [collectionSize]="theToallElemets"
+                                [maxSize]="5"
+                                [boundaryLinks]="true"
+                                (pageChange)="getProductList()">
+                </ngb-pagination>
+              </div>
 
-  </tbody>
+              <div class="col-md-3 mt-2" style="text-align: right">
+                <span class="mr-2">PageSize</span>
+                <select (change)="updatePageSize($event)">
+                  <option selected="true">3</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>30</option>
+                </select>
+              </div>
 
-</table>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
