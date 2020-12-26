@@ -267,8 +267,8 @@ export class CheckoutComponent implements OnInit {
     purchase.billingAddress = this.checkOutFormBuilder.controls['billingAddress'].value;
     const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
     const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country));
-    purchase.shippingAddress.state = billingState.name;
-    purchase.shippingAddress.country = billingCountry.name;
+    purchase.billingAddress.state = billingState.name;
+    purchase.billingAddress.country = billingCountry.name;
 
     purchase.orderItems = orderItems;
     purchase.order = order;
@@ -276,7 +276,7 @@ export class CheckoutComponent implements OnInit {
 
     this.checkOutService.placeOrder(purchase).subscribe({
         next: response => {
-          alert(`your Order Successfully recived`);
+          alert(`your Order Successfully recived ${response}`);
           this.resetCart();
         },
         error: err => {
